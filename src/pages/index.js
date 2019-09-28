@@ -1,44 +1,37 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
 import styled from "styled-components"
-import Layout from "../components/layout"
 
-const Title = styled.h1`
-  display: inline-block;
+import Layout from "../components/layout"
+import Image from "../components/image"
+import SEO from "../components/seo"
+
+const BlogLink = styled(Link)`
+  text-decoration: none;
 `
 
 const BlogTitle = styled.h3`
   margin-bottom: 20px;
-
-  &:hover {
-    color: #1dcaff;
-  }
-`
-
-const BlogLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-`
-
-const BlogBody = styled.div`
-  margin-bottom: 50px;
+  color: blue;
 `
 
 export default ({ data }) => {
+  console.log(data)
   return (
     <Layout>
+      <SEO title="Home" />
       <div>
-        <Title>Thoughts by Yihua</Title>
+        <h1>Kota's Thought</h1>
         <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
         {data.allMarkdownRemark.edges.map(({ node }) => (
-          <BlogBody key={node.id}>
+          <div key={node.id}>
             <BlogLink to={node.fields.slug}>
               <BlogTitle>
-                {node.frontmatter.title} <span>— {node.frontmatter.date}</span>
+                {node.frontmatter.title} - {node.frontmatter.date}
               </BlogTitle>
+              <p>{node.excerpt}</p>
             </BlogLink>
-            <p>{node.frontmatter.description || node.excerpt}</p>
-          </BlogBody>
+          </div>
         ))}
       </div>
     </Layout>
@@ -47,20 +40,17 @@ export default ({ data }) => {
 
 export const query = graphql`
   query {
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMarkdownRemark {
       totalCount
       edges {
         node {
           id
           frontmatter {
-            title
-            date(formatString: "DD MMMM, YYYY")
+            date
             description
+            title
           }
-          fields {
-            slug
-          }
-          excerpt(truncate: true)
+          excerpt
         }
       }
     }
