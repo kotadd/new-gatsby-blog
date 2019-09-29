@@ -1,5 +1,6 @@
 import React from "react"
 import { graphql, Link } from "gatsby"
+
 import styled from "styled-components"
 import Layout from "../components/layout"
 
@@ -27,8 +28,14 @@ const BlogBody = styled.div`
 export default ({ data }) => {
   return (
     <Layout>
-      <div>
-        <Title>Thoughts by Kota</Title>
+      <div
+        style={{
+          backgroundColor: "var(--bg)",
+          color: "var(--textNormal)",
+        }}
+      >
+        <Title>技術とか共有したい内容を集めてみる</Title>
+
         <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
         {data.allMarkdownRemark.edges.map(({ node }) => (
           <BlogBody key={node.id}>

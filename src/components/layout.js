@@ -35,10 +35,16 @@ const Layout = ({ children }) => {
         }}
       >
         <main>{children}</main>
-        <footer>
+        <footer
+          style={{
+            color: "var(--textNormal)",
+          }}
+        >
           © {new Date().getFullYear()}, Built with
           {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
+          <a style={{ color: "#1976d2" }} href="https://www.gatsbyjs.org">
+            Gatsby
+          </a>
         </footer>
       </div>
     </>
